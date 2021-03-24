@@ -5,7 +5,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
 # Create your views here.
-
+def siteHome(request):
+    context={}
+    return render(request, 'main.html', context)
 
 def Login(request):
     form= AuthenticationForm()
