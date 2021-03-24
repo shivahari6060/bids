@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block header %}{% endblock %}
+
+{% block title %}Polls List{% endblock %}
+
+{% block body %}
+<h1>This is the polls list page.</h1>
+<div>
+	{% for poll in polls %}
+	<div>{{poll.text}}</div>
+	<button><a href="{% url 'polls:pollvote' poll.id %}">Give vote</a></button>
+	<button><a href="{% url 'polls:pollresult' poll.id %}">See results</a></button>
+	<hr>
+	{% endfor %}
+</div>
+{% endblock %}
+
+{% block script %}{% endblock %}

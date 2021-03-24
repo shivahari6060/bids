@@ -25,4 +25,6 @@ urlpatterns = [
     path('', include('accounts.urls')),
     path('ecom/', include('ecom.urls')),
     path('bidding/', include('bidding.urls')),
+    path('stats/', include('stats.urls')),
+    path('polls/', include('polls.urls'))
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
