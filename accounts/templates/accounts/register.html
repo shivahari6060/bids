@@ -1,0 +1,42 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block header %}{% endblock %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block body %}
+
+<h1>Welcome to Register page</h1>
+<form action="" method="POST">{% csrf_token %}
+    <div>
+        {{form.username.label}}
+        {{form.username}}
+    </div>
+    <div>
+        {{form.email.label}}
+        {{form.email}}
+    </div>
+    <div>
+        {{form.password1.label}}
+        {{form.password1}}
+    </div>
+    <div>
+        {{form.password2.label}}
+        {{form.password2}}
+    </div>
+    <div>
+        <input type="submit" name="submit">
+    </div>
+    <div>{{form.errors}}</div>
+    <div class="messages">
+        {% for message in messages %}
+        {{message}}
+        {% endfor %}
+    </div>
+    <div>Already have an account? Please <a href="{% url 'accounts:login' %}">Login</a></div>
+</form>
+{% endblock %}
+
+
+{% block script %}{% endblock %}

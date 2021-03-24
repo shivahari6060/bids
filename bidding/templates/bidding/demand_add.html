@@ -1,0 +1,114 @@
+{% extends 'bidding/base.html' %}
+{% load static %}
+
+{% block header %}{% endblock %}
+
+{% block title %}Add Demand{% endblock %}
+
+{% block body %}
+
+<h2>Add Demand form</h2>
+
+<form method="post" id="demandform" 
+data-provinces-url="{% url 'bidding:ajax_load_provinces' %}"
+data-districts-url="{% url 'bidding:ajax_load_districts' %}" 
+data-municipalities-url="{% url 'bidding:ajax_load_municipalities' %}"
+data-commodity-url="{% url 'bidding:ajax_load_commodity' %}"
+data-seeds-url="{% url 'bidding:ajax_load_seedtype' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    
+    <input type="submit" value="Submit">
+</form>
+
+
+{% endblock %}
+
+
+{% block script %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
+crossorigin="anonymous"></script>
+
+<script>
+    $("#id_country").change(function () {
+        const url = $("#demandform").attr("data-provinces-url");  // get the url of the `load_cities` view
+        const countryId = $(this).val();  // get the selected country ID from the HTML input
+
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
+            data: {
+                'country_id': countryId       // add the country id to the GET parameters
+            },
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+                $("#id_province").html(data);  // replace the contents of the city input with the data that came from the server
+               
+            }
+        });
+
+    });
+    $("#id_province").change(function () {
+        const url = $("#demandform").attr("data-districts-url");  // get the url of the `load_cities` view
+        const provinceId = $(this).val();  // get the selected country ID from the HTML input
+
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
+            data: {
+                'province_id': provinceId       // add the country id to the GET parameters
+            },
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+                $("#id_district").html(data);  // replace the contents of the city input with the data that came from the server
+                
+            }
+        });
+
+    });
+    $("#id_district").change(function () {
+        const url = $("#demandform").attr("data-municipalities-url");  // get the url of the `load_cities` view
+        const districtId = $(this).val();  // get the selected country ID from the HTML input
+
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
+            data: {
+                'district_id': districtId     // add the country id to the GET parameters
+            },
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+                $("#id_municipality").html(data);  // replace the contents of the city input with the data that came from the server
+               
+            }
+        });
+
+    });
+    $("#id_category").change(function () {
+        const url = $("#demandform").attr("data-commodity-url");  
+        const categoryId = $(this).val();  
+
+        $.ajax({                      
+            url: url,                   
+            data: {
+                'category_id': categoryId     
+            },
+            success: function (data) {   
+                $("#id_commodity").html(data);  
+               
+            }
+        });
+
+    });
+    $("#id_commodity").change(function () {
+        const url = $("#demandform").attr("data-seeds-url");  
+        const commodityId = $(this).val();  
+
+        $.ajax({                      
+            url: url,                   
+            data: {
+                'commodity_id': commodityId     
+            },
+            success: function (data) {   
+                $("#id_seed_type").html(data);  
+               
+            }
+        });
+
+    });
+</script>
+{% endblock %}

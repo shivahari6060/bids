@@ -1,0 +1,104 @@
+{% extends 'bidding/base.html' %}
+{% load static %}
+
+{% block header %}{% endblock %}
+
+{% block title %}Match Demand{% endblock %}
+
+{% block body %}
+<style>
+table {
+  font-family: arial, sans-serif;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+
+<h1>Supply Details</h1>
+<table>
+  <tr>
+    <th>Category</th>
+    <th>Commodity</th>
+    <th>Seed Type</th>
+    <th>Quantity</th>
+    <th>Rate(per kg)</th>
+  </tr>
+  {% for supply in supplies %}
+  <tr>
+    <td>{{ supply.category }}</td>
+    <td>{{ supply.commodity }}</td>
+    <td>{{ supply.seed_type }}</td>
+    <td>{{ supply.quantity }}</td>
+    <td>{{ supply.price }}</td>
+  </tr>
+  {% endfor %}
+  
+</table>
+
+<div>
+	<h1>Demand Details</h1>
+<table>
+  <tr>
+    <th>Category</th>
+    <th>Commodity</th>
+    <th>Seed Type</th>
+    <th>Quantity</th>
+    <th>Rate(per kg)</th>
+  </tr>
+  {% for demand in demands %}
+  <tr>
+    <td>{{ demand.category }}</td>
+    <td>{{ demand.commodity }}</td>
+    <td>{{ demand.seed_type }}</td>
+    <td>{{ demand.quantity }}</td>
+    <td>{{ demand.price }}</td>
+  </tr>
+  {% endfor %}
+  
+</table>
+</div>
+
+<div>
+	<h1>Match of supply and demand</h1>
+<table>
+  <tr>
+    <th>Supplier</th>
+    <th>Txn Code</th>
+    <th>Buyer</th>
+    <th>Category</th>
+    <th>Commodity</th>
+    <th>Seed Type</th>
+    <th>quantity</th>
+    <th>Rate(per kg)</th>
+    <th>Total Amount</th>
+  </tr>
+  {% for match in matches %}
+  <tr>
+    <td>{{ match.supply_id }}</td>
+    <td>{{ match.txn_code }}</td>
+    <td>{{ match.demand_id }}</td>
+    <td>{{ match.category }}</td>
+    <td>{{ match.commodity }}</td>
+    <td>{{ match.seed_type }}</td>
+    <td>{{ match.quantity }}</td>
+    <td>{{ match.price }}</td>
+    <td>{{ match.get_total }}</td>
+  </tr>
+  {% endfor %}
+  
+</table>
+</div>
+
+{% endblock %}
+
+
+{% block script %}{% endblock %}

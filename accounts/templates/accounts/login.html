@@ -1,0 +1,35 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block header %}{% endblock %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+
+<h1>Welcome to login page</h1>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="login">
+        {{form.username.label}}
+        {{form.username}}
+    </div>
+    <div class="login">
+        {{form.password.label}}
+        {{form.password}}
+    </div>
+    <div class="messages">
+        {% for message in messages %}
+        {{message}}
+        {% endfor %}
+    </div>
+    <div>
+        <input type="submit" name="submit">
+    </div>
+    <div>Doesn't have a account? <a href="{% url 'accounts:register' %}">Register</a></div>
+</form>
+{% endblock %}
+
+
+{% block script %}{% endblock %}
