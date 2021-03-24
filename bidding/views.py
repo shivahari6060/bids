@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from .forms import *
-import pandas as pd
 from django.db.models import Sum
 import datetime
 
