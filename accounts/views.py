@@ -6,10 +6,6 @@ from django.contrib import messages
 
 # Create your views here.
 
-def index(request):
-    context ={}
-    return render(request, 'accounts/base.html', context)
-
 
 def Login(request):
     form= AuthenticationForm()
@@ -19,7 +15,7 @@ def Login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('accounts:index')
+            return redirect('bidding:matchdemand')
         else:
             messages.info(request, 'Username or Password is incorrect !')
     context={
