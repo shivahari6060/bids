@@ -8,12 +8,17 @@
 
 {% block body %}
 <h1>This is the polls voting page.</h1>
+
 <h3>{{poll.text}} ?</h3>
+<form action="{% url 'polls:pollvote' poll.id %}" method="POST">
+	{% csrf_token %}
 {% for choice in choices %}
 <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
 <label for="choice{{ forloop.counter }}">{{choice.choice_text}}</label>
 
 {% endfor %}
+<input type="submit" value="vote">
+</form>
 {% endblock %}
 
 {% block script %}{% endblock %}

@@ -20,5 +20,8 @@ def pollVote(request, poll_id):
 	return render(request, 'polls/polls_vote.html', context)
 
 def pollResult(request, poll_id):
-	context={}
+	obj = get_object_or_404(Poll, pk=poll_id)
+	context={
+		'poll':obj
+	}
 	return render(request, 'polls/polls_result.html', context)

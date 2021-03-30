@@ -7,10 +7,14 @@
 {% block title %}Polls List{% endblock %}
 
 {% block body %}
-<h1>This is the polls voting page.</h1>
+<h1>This is the polls RESULT page.</h1>
+<h1>{{poll.get_result_dict}}</h1>
+{{ poll.user_can_vote }}
+<h1>{{poll.get_vote_count}}</h1>
 <!-- <div>
-	{% for poll in polls %}
-	<div>{{poll.text}}</div>
+	{% for choice in poll.choice_set.all  %}
+	<div>{{choice.choice_text}}</div>
+	{{ choice.votes }} vote{{ choice.votes | pluralize }}
 	<button><a href="{url ''}">Give vote</a></button>
 	<button><a href="{url ''}">See results</a></button>
 	<hr>

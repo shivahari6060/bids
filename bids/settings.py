@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'ecom',
     'rest_framework',
     'polls',
+    'nepseapi',
 ]
 
 MIDDLEWARE = [
