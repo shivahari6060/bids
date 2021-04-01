@@ -28,4 +28,5 @@ urlpatterns = [
     path('stats/', include('stats.urls')),
     path('polls/', include('polls.urls')),
     path('nepseapi/', include('nepseapi.urls')),
+    
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
