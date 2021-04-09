@@ -1,24 +1,40 @@
-{% extends 'base.html' %}
+{% extends 'polls/polls_base.html' %}
 {% load static %}
 
 
-{% block header %}{% endblock %}
+{% block header %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/polls.css' %}" media="screen" />
+{% endblock %}
 
 {% block title %}Polls Vote{% endblock %}
 
 {% block body %}
-<h1>This is the polls voting page.</h1>
+<div class="polls-header container">
+	<p class="display-4"> Please cast your vote !</p>
+</div>
 
+<div class="polls-form container">
 <h3>{{poll.text}} ?</h3>
-<form action="{% url 'polls:pollvote' poll.id %}" method="POST">
-	{% csrf_token %}
+
+<form action="{% url 'polls:pollresult' poll.id %}" method="POST">{% csrf_token %}
+	
 {% for choice in choices %}
+<div class="choices">
 <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
 <label for="choice{{ forloop.counter }}">{{choice.choice_text}}</label>
-
+</div>
 {% endfor %}
-<input type="submit" value="vote">
+<div></div>
+<button type="submit" class="btn btn-success"> Vote </button>
 </form>
+
+<div>
+	<a href="{% url 'polls:pollview' %}">
+		<button class="btn btn-danger"> Go Back </button>
+	</a>
+</div>
+</div>
+
 {% endblock %}
 
 {% block script %}{% endblock %}

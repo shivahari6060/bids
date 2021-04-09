@@ -7,6 +7,10 @@ from bs4 import BeautifulSoup
 import pandas as pd 
 import json
 
+def GoogleDrive(request):
+	context={}
+	return render(request, 'nepseapi/googledrive.html', context)
+
 # Create your views here.
 
 def get_range(request, maxm):

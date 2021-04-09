@@ -1,0 +1,42 @@
+*{
+	box-sizing: border-box;
+}
+body{
+	background: #FFFCC9;
+}
+.polls-header{
+	background: red;
+	text-align: center;
+	margin-top: 15vh;
+	padding: 2vw;
+	color: white;
+}
+
+.polls-form{
+	background: rgba(0, 0, 0, 0.23);
+	padding: 5vw;
+}
+
+.choices{
+	margin-left: 3vw;
+}
+
+.pollresult-header > h1{
+	background: blue;
+	padding: 2vw;
+	text-align: center;
+	color:white;
+}
+.resultpoll-title > h2{
+	background: yellow;
+	padding:1%;
+}
+#total-count {
+	background: #19543E;
+	padding: 1%;
+	color:white;
+}
+
+.resultpoll .resultpoll-row{
+	padding-left:1%;
+}

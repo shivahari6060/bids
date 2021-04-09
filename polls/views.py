@@ -21,7 +21,11 @@ def pollVote(request, poll_id):
 
 def pollResult(request, poll_id):
 	obj = get_object_or_404(Poll, pk=poll_id)
+	results= obj.get_result_dict
+	votes= obj.vote_set.count()
 	context={
-		'poll':obj
+		'poll':obj,
+		'results': results,
+		'votes':votes
 	}
 	return render(request, 'polls/polls_result.html', context)

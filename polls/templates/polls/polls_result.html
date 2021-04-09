@@ -1,16 +1,39 @@
-{% extends 'base.html' %}
+{% extends 'polls/polls_base.html' %}
 {% load static %}
 
 
-{% block header %}{% endblock %}
+{% block header %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/polls.css' %}" media="screen" />
+{% endblock %}
 
-{% block title %}Polls List{% endblock %}
+{% block title %}Polls Results{% endblock %}
 
 {% block body %}
-<h1>This is the polls RESULT page.</h1>
-<h1>{{poll.get_result_dict}}</h1>
-{{ poll.user_can_vote }}
-<h1>{{poll.get_vote_count}}</h1>
+<div class="pollresult-header container">
+<h1 class="display-4">Check Out Result </h1>
+</div>
+<div class="resultpoll-title container">
+<h2>{{poll.text}}</h2>
+</div>
+<div class=" resultpoll container">
+	<hr>
+{% for result in results %}
+<div class="resultpoll-row">
+<p><strong>{{result.choice}} : </strong><span class="badge badge-primary"> {{result.num_votes}} vote{{result.num_votes|pluralize:',s'}} </span> , <strong> Percentage: </strong><span class="badge badge-info"> {{result.percentage|floatformat:2}} </span><p>
+</div>
+<hr>
+{% endfor %}
+<h2 id="total-count">Total Votes :- {{votes}}</h2>
+<div>
+<a href="{% url 'polls:pollvote' poll.id %}">
+	<button type="button" class="btn btn-info btn-sm"> Back to Vote </button>
+</a>
+<a href="{% url 'polls:pollview' %}">
+	<button type="button" class="btn btn-success btn-sm"> Dashboard </button>
+</a>
+</div>
+</div>
+
 <!-- <div>
 	{% for choice in poll.choice_set.all  %}
 	<div>{{choice.choice_text}}</div>

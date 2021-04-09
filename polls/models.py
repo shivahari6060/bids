@@ -21,10 +21,13 @@ class Poll(models.Model):
 			return False
 		return True
 
-
+#this property counts the total votes that had been voted in selected question 
 	@property
 	def get_vote_count(self):
 		return self.vote_set.count()
+
+#this will give the total result count of every choice in dictionary and can be 
+#get by using for loop in views.
 
 	def get_result_dict(self):
 		res=[]

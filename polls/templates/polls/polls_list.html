@@ -1,18 +1,28 @@
-{% extends 'base.html' %}
+{% extends 'polls/polls_base.html' %}
 {% load static %}
 
 
-{% block header %}{% endblock %}
+{% block header %}
+
+{% endblock %}
 
 {% block title %}Polls List{% endblock %}
 
 {% block body %}
-<h1>This is the polls list page.</h1>
-<div>
+<div class="jumbotron container-sm">
+  <h1 class="display-3 offset-md-2">Welcome to Polls World !</h1>
+  <p class="lead offset-md-2">This is the simple site, introduced to create rapid polls further supported by python based analysis of the poll.</p>
+  <hr class="my-4">
+</div>
+<div class="col-sm-8 offset-md-2">
 	{% for poll in polls %}
-	<div>{{poll.text}}</div>
-	<button><a href="{% url 'polls:pollvote' poll.id %}">Give vote</a></button>
-	<button><a href="{% url 'polls:pollresult' poll.id %}">See results</a></button>
+	<div><h4>{{poll.text}}</h4><span class="badge badge-success">{{poll.get_vote_count}} vote{{poll.get_vote_count|pluralize:',s'}}</span></div>
+	<a href="{% url 'polls:pollvote' poll.id %}">
+		<button type="button" class="btn btn-info btn-sm"> Give Vote </button>
+	</a>
+	<a href="{% url 'polls:pollresult' poll.id %}">
+		<button type="button" class="btn btn-secondary btn-sm"> See Result </button>
+	</a>
 	<hr>
 	{% endfor %}
 </div>
