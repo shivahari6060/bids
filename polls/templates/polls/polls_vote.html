@@ -10,13 +10,16 @@
 
 {% block body %}
 <div class="polls-header container">
+{% for message in messages %}
+{{message}}
+{% endfor %}
 	<p class="display-4"> Please cast your vote !</p>
 </div>
 
 <div class="polls-form container">
 <h3>{{poll.text}} ?</h3>
 
-<form action="{% url 'polls:pollresult' poll.id %}" method="POST">{% csrf_token %}
+<form action="{% url 'polls:pollvote' poll.id %}" method="POST">{% csrf_token %}
 	
 {% for choice in choices %}
 <div class="choices">
@@ -24,7 +27,12 @@
 <label for="choice{{ forloop.counter }}">{{choice.choice_text}}</label>
 </div>
 {% endfor %}
-<div></div>
+{% if message %}
+<div class="alert alert-danger col-sm-6" role="alert">
+  {{message}}
+</div>
+{% endif %}
+<div><p><strong>Notice: </strong> Once you make your vote, you can't <strong>EDIT</strong> it. Thus be careful while making vote !!</p></div>
 <button type="submit" class="btn btn-success"> Vote </button>
 </form>
 

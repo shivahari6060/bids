@@ -3,6 +3,8 @@ from .forms import RegisterUserForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 # Create your views here.
 def siteHome(request):
@@ -11,17 +13,24 @@ def siteHome(request):
 
 def Login(request):
     form= AuthenticationForm()
+    next= ""
+    if request.GET:
+        next= request.GET['next']
     if request.method=='POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('bidding:matchdemand')
+            if next=='':
+                return HttpResponseRedirect('/polls/dashboard')
+            else:
+                return HttpResponseRedirect(next)
         else:
             messages.info(request, 'Username or Password is incorrect !')
     context={
         'form':form,
+        'next':next,
     }
     return render(request, 'accounts/login.html', context)
 

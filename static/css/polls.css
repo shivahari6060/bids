@@ -2,8 +2,11 @@
 	box-sizing: border-box;
 }
 body{
-	background: #FFFCC9;
+	background: #f5f5dc;
+/*	background-image: radial-gradient(grey 1px, transparent 0);
+	background-size: 10px 10px;*/
 }
+
 .polls-header{
 	background: red;
 	text-align: center;

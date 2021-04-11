@@ -9,7 +9,11 @@
 
 <h1>Welcome to login page</h1>
 
-<form action="" method="POST">
+{% if next %}
+<form action="/login/?next={{next}}" method="POST">
+{% else %}
+<form action="/login/" method="POST">
+{% endif %}
     {% csrf_token %}
     <div class="login">
         {{form.username.label}}
