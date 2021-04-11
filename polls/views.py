@@ -4,6 +4,10 @@ from django.urls import reverse
 from .models import *
 from django.contrib.auth.decorators import login_required
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from django.http import Http404, JsonResponse
+
 # Create your views here.
 
 def pollView(request):
@@ -34,15 +38,55 @@ def pollVote(request, poll_id):
 		'choices':choices,
 	}
 	return render(request, 'polls/polls_vote.html', context)
+#result jsonResponse
+def ResultJson(request, poll_id):
+	labels=[]
+	votes=[]
+	percentage=[]
+	obj = get_object_or_404(Poll, pk=poll_id)
+	for result in obj.choice_set.all():
+		labels.append(result.choice_text)
+		votes.append(result.get_vote_count)
+		pct=(result.get_vote_count/obj.get_vote_count)*100
+		perct=round(pct, 2)
+		percentage.append(perct)
+	data={
+		'labels':labels,
+		'votes':votes,
+		'percentage':percentage,
+		'label':obj.text
+	}
+	return JsonResponse(data, safe=False)
+
 
 #result page
 def pollResult(request, poll_id):
 	obj = get_object_or_404(Poll, pk=poll_id)
 	results= obj.get_result_dict
-	votes= obj.vote_set.count()
+	total_votes= obj.vote_set.count()
 	context={
 		'poll':obj,
 		'results': results,
-		'votes':votes
+		'total_votes':total_votes
 	}
 	return render(request, 'polls/polls_result.html', context)
+
+
+class PollResult(APIView):
+ 
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request, pk=None, format=None):
+    	labels=[]
+    	votes=[]
+    	obj= get_object_or_404(Poll, pk=pk)
+    	for result in obj.choice_set.all():
+    		labels.append(result.choice_text)
+    		votes.append(result.get_vote_count)
+    	print(labels)
+    	data={
+    		'labels':labels,
+    		'votes':votes
+    	}
+    	return Response(data)

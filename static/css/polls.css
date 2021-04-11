@@ -1,8 +1,10 @@
-*{
+* {
+	margin:0;
+	padding:0;
 	box-sizing: border-box;
 }
 body{
-	background: #f5f5dc;
+	background: #f2f2f2;
 /*	background-image: radial-gradient(grey 1px, transparent 0);
 	background-size: 10px 10px;*/
 }
