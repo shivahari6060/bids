@@ -60,7 +60,7 @@ class NepseApi(APIView):
 		df= pd.DataFrame(d[1:], columns=d[0])
 		date= pd.Timestamp.today().strftime('%Y-%m-%d')
 		df['date']= date
-		df_csv = df.to_csv(date +'.csv', index=True)
+		df_csv = df.to_csv(date +'.csv', index=False)
 		df.rename(columns={'Traded Companies': 'company_name','No. Of Transaction': 'no_of_transaction', 'Max Price':'max_price','Min Price':'min_price','Closing Price':'closing_price','Traded Shares':'traded_shares','Previous Closing':'previous_closing','Difference Rs.':'difference_rs'}, inplace=True)
 		jsn = json.loads(df.to_json(orient='records'))
 
